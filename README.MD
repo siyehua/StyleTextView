@@ -296,7 +296,7 @@ ascent与descent之间的距离不等于textSize的大小/高度.
 假设top与ascent之间的空白是firstSpace,ascent 与文字顶端的空白是secondSpace,
 
 ```
-则文字最顶端的Y坐标topTextY = firstSpace + secondSpace;(如TextView已经设置了android:includeFontPadding="false"则不要加上topSpace)
+则文字最顶端的Y坐标topTextY = firstSpace + secondSpace;(如TextView已经设置了android:includeFontPadding="false"则不需要加上firstSpace)
 firstSpace = ascent - top;
 secondSpace = descent - ascent - textSize;
 ```

@@ -1,6 +1,6 @@
 #StyleTextView
 
-##本文主要讲解了TextView控件绘制文字上下留有一定空白原因,以及使用canvas.drawText()绘制文字时,baseLine的该如何确定,如何让文字上下没有留白
+##本文主要探讨TextView控件绘制文字,上下会留有一定空白原因.以及使用canvas.drawText()绘制文字时,baseLine的该如何确定,如何让文字上下没有留白
 
 最近做项目的时候遇到个问题
 

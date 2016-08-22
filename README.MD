@@ -60,7 +60,7 @@ TextView textView = (TextView) findViewById(R.id._001);
 
 实践与理论一样简单,完全不是个事.然后我就兴冲冲的把代码提交了.一切都很顺利,同事还夸我脑子灵活.
 
-###当然故事肯定都没有这么简单的,这么简单也没有好写博客的,毕竟天天都有人夸我.
+###当然故事肯定都没有这么简单的,这么简单也什么好写博客的,毕竟天天都有人夸我.
 
 ##事故
 说到事故,先说个故事.
@@ -83,21 +83,21 @@ APP都有个设计,视觉都会有个美女,自从调来了一个美女视觉之
 
 具体可以看一下canvas.draw图形方法,以及canvas.drawText方法参数.
 
-问题是知道的,但是没有办法和设计解释,然而也不出好的方法改变baseLine绘制.
+问题是知道的,但是没有办法和设计解释,然而也想出好的方法改变baseLine绘制.
 Google一圈没有答案,群里问了一圈也没有,建议自己定义,看来只好自己动手了.
 
 
 ##思路
 SpannableString基本上是可以满足需求的,关键是画%百分号的时候不满足.
 
-* 看源码看TextView是如何利用SpannableString画的,覆写/或者其关键位置达到目的
+* 看源码看TextView是如何利用SpannableString画的,覆写其关键代码达到目的
 
-    源码老复杂了看不懂.看资料SpannableString有一个上标的功能,试了一下上标是相对于自己的字体大小来上标的,而60与%相差甚远,且无法微调
+    源码老复杂了看不懂.看资料SpannableString有一个上标的功能,试了一下上标是相对于本身字体大小来上标的,而60与%相差甚远,且无法微调
 
-* 画百分号%的时候自己画
+* 画百分号%的时候自己画(看来只能这个思路了)
 
 ###自定义TextView
-* 自定义StyleTextView集成TextView
+* 自定义StyleTextView继承TextView
 * 定义类TextStyle
 
 ```java
@@ -161,13 +161,15 @@ public static class TextStyle {
 
 ##外传
 
-实际上上面所有的都并非关键,关键是drawText()参数.
+故事到这里就结束肯定不叫故事.
+
+上面所有的都并非关键,关键是drawText()参数.
 
 之前说了,drawText是从左下角开始画的,所以要计算出startX与BaseLine的值.
 
 startX:计算出百分号之前的"60"的宽度即可.
 
-BaseLine:TextView上下有一定的空白,实际的高度与TextSize高度不是相等的.
+baseLine:baseLine实际上就是textSize,但TextView上下有一定的空白,导致与size高度不是相等的.
 
 ![Image](/img/_004.png)
 
@@ -175,7 +177,7 @@ BaseLine:TextView上下有一定的空白,实际的高度与TextSize高度不是
 
 当文字字号过大时,空白非常的明显.测试要求"60%"百分号与60对齐,必须量出空白的高度.
 
-###测试TextView各个属性
+###测试上图中的各个属性
 
 按照上图的说法,我们打印一下这几个值
 
@@ -248,7 +250,7 @@ TextView本身包含一定的FontPadding.看TextView的setIncludeFontPadding()�
 ```
 
 源码不重要,关键是注释,注释里写默认是有一定的间距的,view的高度是top与bottom之间的间距,而设置为false之后,view的高度是ascent与descent之间的间距
-重新设置并打印正确的值
+重新设置并打印值
 
 ```xml
 <TextView
@@ -320,7 +322,7 @@ secondSpace = descent - ascent - textSize;
 baseLine = topTextY + 百分号字号大小 - 百分号的topTextY;
 ```
 
-具体代码(详情请看自定义的[StyleTextView](/app/src/main/java/com/siyehua/styletextview/StyleTextView.java))
+代码(详情请看自定义的[StyleTextView](/app/src/main/java/com/siyehua/styletextview/StyleTextView.java))
 
 ```java
  Paint mPaint = getPaint();
@@ -342,7 +344,7 @@ baseLine = topTextY + 百分号字号大小 - 百分号的topTextY;
             canvas.drawText(second.content, startX, baseLine, mPaint);
 ```
 
-结果(60这个字符串本身距离文字有一点间距,假设使用l字母则刚刚好)
+结果(60这个字符串本身距离文字有一点间距,假设使用字母 'l' 刚刚好)
 
 ![Image](/img/_006.png)
 
@@ -368,11 +370,13 @@ baseLine = topTextY + 百分号字号大小 - 百分号的topTextY;
 
 会发现百分号并没有跟着跑,实际上是因为canvas.drawText()这个方法的参数,startX与BaseLine还受内容的对齐方式影响
 
-假设TextView的对齐方式是居中,则startX则是TextView文字的中点.
+而我绘制百分号并没有考虑这方面的因素.
+
+假设TextView的对齐方式是居中,则startX是TextView文字的中点.
 
 ![Image](/img/_008.png)
 
-图中红框的右边便是文字的右边,而我们需要计算到右边减去粉色百分号%,得到到即是上标百分号%的startY
+图中红框的右边便是文字的右边,而我们需要计算文字右边减去粉色百分号%,得到到即是上标百分号%的startY
 
 ```
 上标startY = 文字右边 - "%"宽度
@@ -389,9 +393,11 @@ startX = getWidth() / 2.0f + (startX + mPaint.measureText(second.content)) / 2.0
 
 ![Image](/img/_009.png)
 
-可以看到百分号的已经设置到了正确的问题.
+可以看到百分号的已经设置到了正确的位置.
 
-同理可得当TextView的高度设置match_parent,且内容设置居中,需要用同样的方法计算baseline.
+同理可得(其实我懒得算了)
+
+当TextView的高度设置match_parent,且内容设置居中时,需要用同样的方法计算baseline.
 
 这里就不在举例了.毕竟制作表情包太累了.
 

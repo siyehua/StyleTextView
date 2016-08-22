@@ -346,7 +346,7 @@ baseLine = topTextY + 百分号字号大小 - 百分号的topTextY;
             canvas.drawText(second.content, startX, baseLine, mPaint);
 ```
 
-结果(60这个字符串本身距离文字有一点间距,假设使用字母 'l' 刚刚好)
+结果(60这个字符串本身距离直线有一点间距是因为字不够长,假设使用字母 'l' 刚刚好)
 
 ![Image](/img/_006.png)
 

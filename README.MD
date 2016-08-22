@@ -175,7 +175,7 @@ baseLine:baseLine实际上就是textSize,但TextView上下有一定的空白,导
 
 图片来源于网络
 
-当文字字号过大时,空白非常的明显.测试要求"60%"百分号与60对齐,必须量出空白的高度.
+当文字字号过大时,空白非常的明显.设计要求"60%"百分号与60对齐,所以必须量出空白的高度.
 
 ###测试上图中的各个属性
 
@@ -294,8 +294,8 @@ ascent与descent之间的距离不等于textSize的大小/高度.
 假设top与ascent之间的空白是firstSpace,ascent 与文字顶端的空白是secondSpace,
 
 ```
-则文字最顶端的Y坐标topTextY = firstSpace + secondSpace;
-firstSpace = ascent - top;(如TextView已经设置了android:includeFontPadding="false"不要减)
+则文字最顶端的Y坐标topTextY = firstSpace + secondSpace;(如TextView已经设置了android:includeFontPadding="false"则不要加上topSpace)
+firstSpace = ascent - top;
 secondSpace = descent - ascent - textSize;
 ```
 
@@ -397,7 +397,7 @@ startX = getWidth() / 2.0f + (startX + mPaint.measureText(second.content)) / 2.0
 
 同理可得(其实我懒得算了)
 
-当TextView的高度设置match_parent,且内容设置居中时,需要用同样的方法计算baseline.
+####当TextView的高度设置match_parent,且内容设置居中时,需要用同样的方法计算baseline.
 
 这里就不在举例了.毕竟制作表情包太累了.
 

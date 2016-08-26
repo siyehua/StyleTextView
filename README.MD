@@ -215,6 +215,8 @@ top: -126.73828  ascent: -111.328125  descent: 29.296875  bottom: 32.51953  lead
 view-top: 0  view-bottom: 160 textSize: 120.0
 ```
 
+![Image](/img/_010.png)
+
 ###其中top与ascent是负数,是因为baseline是0.
 
 ###根据上图,默认状态下,top与ascent在baseline上面,而安卓手机的Y轴正方向是向下的,故top与ascent是负数,所以前面提到的baseline实际上就等于-top.

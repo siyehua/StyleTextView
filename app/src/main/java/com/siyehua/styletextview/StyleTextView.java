@@ -58,7 +58,7 @@ public class StyleTextView extends TextView {
             startX = getWidth() / 2.0f + (startX + mPaint.measureText(second.content)) / 2.0f -
                     mPaint.measureText(second.content);
 
-            float baseLine = space + second.size - topSpace(mPaint);
+            float baseLine = space + -mPaint.getFontMetrics().top - topSpace(mPaint);
             mPaint.setColor(second.color);
             canvas.drawText(second.content, startX, baseLine, mPaint);
 

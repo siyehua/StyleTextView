@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 //        textView.setText(spannableString);
 
 
-
         StyleTextView textView = (StyleTextView) findViewById(R.id.tv_content);
         assert textView != null;
         int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources()
@@ -85,9 +84,16 @@ public class MainActivity extends AppCompatActivity {
         int size3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 60, getResources
                 ().getDisplayMetrics());
         int color3 = Color.parseColor("#464646");
-        textView.setText("60%\n主胜", new StyleTextView.TextStyle("60", size3, color3, false), new
+        textView.setText("6 0%\n主胜", new StyleTextView.TextStyle("6 0", size3, color3, false), new
                 StyleTextView.TextStyle("%", size, color, true), new StyleTextView.TextStyle
                 ("主胜", size2, color2, false));
+
+//        DrawLineTextView textView1 = (DrawLineTextView) findViewById(R.id.tv_001);
+//        DrawLineTextView textView2 = (DrawLineTextView) findViewById(R.id.tv_002);
+//        textView2.setType(1);
+//        DrawLineTextView textView3 = (DrawLineTextView) findViewById(R.id.tv_003);
+//        textView3.setType(2);
+
     }
 
 }

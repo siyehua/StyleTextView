@@ -167,11 +167,11 @@ public static class TextStyle {
 
 上面所有的都并非关键,关键是drawText()参数.
 
-之前说了,drawText是从左下角开始画的,所以要计算出startX与BaseLine的值.
+之前说了,drawText是从左下角开始画的,所以要计算出startX与baseLine的值.
 
 startX:计算出百分号之前的"60"的宽度即可.
 
-baseLine:baseLine实际上就是textSize,但TextView上下有一定的空白,导致与size高度不是相等的.
+baseLine:baseLine默认是等于-top(后文证明),但TextView上下有一定的空白,导致直接写-top不满足需求
 
 ![Image](/img/_004.png)
 
@@ -212,6 +212,11 @@ baseLine:baseLine实际上就是textSize,但TextView上下有一定的空白,导
 top: -126.73828  ascent: -111.328125  descent: 29.296875  bottom: 32.51953  leading: 0.0
 view-top: 0  view-bottom: 160 textSize: 120.0
 ```
+
+###其中top与ascent是负数,是因为baseline是0.
+
+###根据上图,默认状态下,top与ascent在baseline上面,而安卓手机的Y轴正方向是向下的,故top与ascent是负数,所以前面提到的baseline实际上就等于-top.
+
 按照网上的说法,TextView的宽度实际上是 top与 bottom的距离,与结果一致
 
 文字的高度是 ascent与descent之间的距离 111.328125 + 29.296875 ≈ 140.63px,而打印出来的文字的实际大小是120px,这个结果与预期不符.
@@ -271,7 +276,11 @@ top: -126.73828  ascent: -111.328125  descent: 29.296875  bottom: 32.51953  lead
 view-top: 0  view-bottom: 140 textSize: 120.0
 ```
 
-结果只是符合源码解释,但是并没有得到
+结果符合源码的解释,同时完善一下上面的关于baseline的结论.
+
+###假设设置了android:includeFontPadding="false",则baseline实际的值等于-ascent
+
+但是,并没有得到:
 
 ```
 ascent与descent之间的距离等于textSize的大小.
@@ -321,7 +330,7 @@ secondSpace = descent - ascent - textSize;
 所以画百分号的baseline等于
 
 ```
-baseLine = topTextY + 百分号字号大小 - 百分号的topTextY;
+baseLine = topTextY + -top(默认状态下,百分号的baseline) - 百分号的topTextY;
 ```
 
 代码(详情请看自定义的[StyleTextView](/app/src/main/java/com/siyehua/styletextview/StyleTextView.java))
@@ -341,7 +350,7 @@ baseLine = topTextY + 百分号字号大小 - 百分号的topTextY;
 
             //画百分号
             mPaint.setTextSize(second.size);
-            float baseLine = space + second.size - topSpace(mPaint);
+            float baseLine = space + -mPaint.getFontMetrics().top - topSpace(mPaint);
             mPaint.setColor(second.color);
             canvas.drawText(second.content, startX, baseLine, mPaint);
 ```

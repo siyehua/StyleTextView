@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 //        textView.setText(spannableString);
 
 
+
         StyleTextView textView = (StyleTextView) findViewById(R.id.tv_content);
         assert textView != null;
         int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources()

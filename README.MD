@@ -401,6 +401,7 @@ startX = getWidth() / 2.0f + (startX + mPaint.measureText(second.content)) / 2.0
 ```
 
 
+
 结果
 
 ![Image](/img/_009.png)

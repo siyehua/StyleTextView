@@ -69,6 +69,7 @@ public class StyleTextView extends TextView {
     }
 
 
+
     private float topSpace(Paint mPaint) {
         return (mPaint.getFontMetrics().ascent - mPaint.getFontMetrics().top) //最上层空白
                 + secondSpace(mPaint);

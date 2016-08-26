@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 StyleTextView.TextStyle("%", size, color, true), new StyleTextView.TextStyle
                 ("主胜", size2, color2, false));
 
+
 //        DrawLineTextView textView1 = (DrawLineTextView) findViewById(R.id.tv_001);
 //        DrawLineTextView textView2 = (DrawLineTextView) findViewById(R.id.tv_002);
 //        textView2.setType(1);

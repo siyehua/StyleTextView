@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:orientation="horizontal"
+    >
+
+    <com.siyehua.styletextview.DrawLineTextView
+        android:id="@+id/tv_001"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="abflg"
+        android:textColor="#F000F0"
+        android:textSize="40sp"/>
+
+    <com.siyehua.styletextview.DrawLineTextView
+        android:id="@+id/tv_002"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="abflg"
+        android:textColor="#0000F0"
+        android:textSize="40sp"/>
+
+    <com.siyehua.styletextview.DrawLineTextView
+        android:id="@+id/tv_003"
+        android:includeFontPadding="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="abflg"
+        android:textColor="#F00000"
+        android:textSize="40sp"/>
+</LinearLayout>

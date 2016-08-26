@@ -37,25 +37,29 @@ public class DrawLineTextView extends TextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
 //        if (flag) {
         Paint mPaint = getPaint();
         float lineY = mPaint.getFontMetrics().ascent - mPaint.getFontMetrics().top + mPaint
                 .getFontMetrics().descent - mPaint.getFontMetrics().ascent - mPaint.getTextSize();
+
+        if (type == 0) {
+            super.onDraw(canvas);
+        } else if (type == 1) {
+            mPaint.setColor(Color.parseColor("#0000F0"));
+            canvas.drawText(getText().toString(), 0, getTextSize(), mPaint);
+        } else if (type == 2) {
+            mPaint.setColor(Color.parseColor("#F00000"));
+            canvas.drawText(getText().toString(), 0, -mPaint.getFontMetrics().top, mPaint);
+        }
         mPaint.setColor(Color.parseColor("#FF00FF"));
         canvas.drawLine(0, lineY, getWidth(), lineY, mPaint);
 //        }
     }
 
-    float top, ascent, descent, bottom;
-    private boolean flag = false;
+    private int type = 0;
 
-    public void setLinePositionAndDraw(float top, float ascent, float descent, float bottom) {
-        flag = true;
-        this.top = top;
-        this.ascent = ascent;
-        this.descent = descent;
-        this.bottom = bottom;
+    public void setType(int type) {
+        this.type = type;
         postInvalidate();
     }
 }

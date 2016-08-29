@@ -221,7 +221,7 @@ view-top: 0  view-bottom: 160 textSize: 120.0
 
 ###根据上图,默认状态下,top与ascent在baseline上面,而安卓手机的Y轴正方向是向下的,故top与ascent是负数,所以前面提到的baseline实际上就等于-top.
 
-按照网上的说法,TextView的宽度实际上是 top与 bottom的距离,与结果一致
+按照网上的说法,TextView的高度实际上是 top与 bottom的距离,与结果一致
 
 文字的高度是 ascent与descent之间的距离 111.328125 + 29.296875 ≈ 140.63px,而打印出来的文字的实际大小是120px,这个结果与预期不符.
 

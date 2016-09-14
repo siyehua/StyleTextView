@@ -175,7 +175,7 @@ startX:计算出百分号之前的"60"的宽度即可.
 
 baseLine:baseLine默认是等于-top(后文证明),但TextView上下有一定的空白,导致直接写-top不满足需求
 
-![Image](/img/_004.png)
+![Image](/img/_012.png)
 
 图片来源于网络
 
@@ -215,7 +215,7 @@ top: -126.73828  ascent: -111.328125  descent: 29.296875  bottom: 32.51953  lead
 view-top: 0  view-bottom: 160 textSize: 120.0
 ```
 
-![Image](/img/_011.png)
+![Image](/img/_013.png)
 
 ###其中top与ascent是负数,是因为baseline是0.
 
@@ -304,7 +304,7 @@ ascent与descent之间的距离不等于textSize的大小/高度.
 
 ##分析
 
-![Image](/img/_004.png)
+![Image](/img/_012.png)
 
 假设top与ascent之间的空白是firstSpace,ascent 与文字顶端的空白是secondSpace,
 
